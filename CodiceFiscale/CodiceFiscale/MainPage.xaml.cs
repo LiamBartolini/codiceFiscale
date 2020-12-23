@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CodiceFiscale.Models;
 using Xamarin.Forms;
 
 namespace CodiceFiscale
@@ -13,6 +14,11 @@ namespace CodiceFiscale
         public MainPage()
         {
             InitializeComponent();
+        }
+        
+        private void btnCalcola_Clicked(object sender, EventArgs e)
+        {
+            Cf cf = new Cf();
         }
     }
 }

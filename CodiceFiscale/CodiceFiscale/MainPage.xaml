@@ -8,24 +8,28 @@
             HorizontalOptions="CenterAndExpand"
             Placeholder="Inserisci il nome"        
             PlaceholderColor="Black"
+            x:Name="ntrNome"
             />
 
         <Entry
             HorizontalOptions="CenterAndExpand"
             Placeholder="Inserisci il cognome"        
             PlaceholderColor="Black"
+            x:Name="ntrCognome"
             />
 
         <Entry
             HorizontalOptions="CenterAndExpand"
             Placeholder="Inserisci il sesso"        
             PlaceholderColor="Black"
+            x:Name="ntrSesso"
             />
 
         <Entry
             HorizontalOptions="CenterAndExpand"
-            Placeholder="Regione, Comune"
+            Placeholder="Regione, Comune di nascita"
             PlaceholderColor="Black"
+            x:Name="ntrComune"
             />
 
         <StackLayout Orientation="Horizontal">
@@ -39,13 +43,16 @@
             <DatePicker
                 VerticalOptions="CenterAndExpand"
                 HorizontalOptions="CenterAndExpand"
+                x:Name="dpInput"
                 />
         </StackLayout>
 
         <Button
             Text="Calcola codice fiscale"
+            x:Name="btnCalcola"
             VerticalOptions="Center"
             HorizontalOptions="CenterAndExpand"
+            Clicked="btnCalcola_Clicked"
             />
 
         <Label
