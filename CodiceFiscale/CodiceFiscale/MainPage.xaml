@@ -27,7 +27,7 @@
 
         <Entry
             HorizontalOptions="CenterAndExpand"
-            Placeholder="Regione, Comune di nascita"
+            Placeholder="Regione, Provincia, comune"
             PlaceholderColor="Black"
             x:Name="ntrComune"
             />

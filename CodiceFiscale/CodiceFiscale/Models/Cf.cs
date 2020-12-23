@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using System.IO;
+using Xamarin.Essentials;
 
 namespace CodiceFiscale.Models
 {
@@ -15,7 +17,9 @@ namespace CodiceFiscale.Models
         string _cognome;
         DateTime _dataDiNascita;
         string _regione;
+        string _provincia;
         string _comune;
+        string _codiceCatastale;
         string _sesso;
         string _codiceFiscale;
         public string CodiceFiscale { get; }
@@ -24,7 +28,7 @@ namespace CodiceFiscale.Models
         {
         }
 
-        public Cf(string nome, string cognome, DateTime dataDiNascita, string sesso, string regione, string comune)
+        public Cf(string nome, string cognome, DateTime dataDiNascita, string sesso, string regione, string comune, string provincia)
         {
             _nome = nome;
             _cognome = cognome;
@@ -32,7 +36,8 @@ namespace CodiceFiscale.Models
             _sesso = sesso;
             _regione = regione;
             _comune = comune;
-
+            _provincia = provincia;
+            
             CalcoloCodiceFiscale();
             Debug.WriteLine(sb.ToString());
         }
@@ -54,7 +59,9 @@ namespace CodiceFiscale.Models
             else
                 sb.Append($"{_dataDiNascita.Day + 40}");
             // Aggiungo il comune
-            sb.Append("H294");
+            AggiungiComune();
+            sb.Append(_codiceCatastale);
+            //sb.Append("H294");
             // Aggiungo il carattere di controllo
             int checkChar = CalcoloCarattereControlloCf();
             sb.Append(lettere[checkChar]);
@@ -303,6 +310,24 @@ namespace CodiceFiscale.Models
                 if (!vocali.Contains(word[i]))
                     retVal++;
             return retVal;
+        }
+
+        async void AggiungiComune()
+        {
+            using (var stream = await FileSystem.OpenAppPackageFileAsync("ComuniItaliani.cmi"))
+            {
+                using (var reader = new StreamReader(stream))
+                {
+                    while (!reader.EndOfStream)
+                    {
+                        //Regione,Provincia,Comune,Codice catastale
+                        string[] cols = reader.ReadLine().Split(',');
+
+                        if (cols[0] == _regione && cols[1] == _provincia && cols[2] == _comune)
+                            _codiceCatastale = cols[3];
+                    }
+                }
+            }
         }
     }
 }

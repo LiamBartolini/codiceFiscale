@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CodiceFiscale.Models;
 using Xamarin.Forms;
 
@@ -27,6 +22,7 @@ namespace CodiceFiscale
                     dpInput.Date,
                     ntrSesso.Text,
                     colonne[0],
+                    colonne[2],
                     colonne[1]
                     );
             }
@@ -38,7 +34,8 @@ namespace CodiceFiscale
                     dpInput.Date,
                     "Maschio",
                     "EmiliaRomagna",
-                    "Rimini"
+                    "Rimini",
+                    "Coriano"
                     );
             }
         }

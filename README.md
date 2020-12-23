@@ -5,5 +5,9 @@
 ## Algoritmo
 - [] Implementarlo
   - [x] algoritmo v1.0
-- [] Riformattazione file "comuni"
-- [] Aggiungere comuni nel file
+
+- [] File ComuniItaliani.cmi
+  - [] Aggiungere comuni nel file
+    - Emilia-Romagna
+    
+  - [] Parser per la ricerca --ricerca dicotomica--
