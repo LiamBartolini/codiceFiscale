@@ -31,7 +31,7 @@
             PlaceholderColor="Black"
             x:Name="ntrComune"
             />
-
+        
         <StackLayout Orientation="Horizontal">
             <Label
                 Text="Data di nascita: "

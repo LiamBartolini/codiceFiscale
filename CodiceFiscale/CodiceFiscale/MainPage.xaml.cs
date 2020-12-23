@@ -18,7 +18,27 @@ namespace CodiceFiscale
         
         private void btnCalcola_Clicked(object sender, EventArgs e)
         {
-            Cf cf = new Cf();
+            try
+            {
+                string[] colonne = ntrComune.Text.Split(',');
+                Cf cf = new Cf(
+                    ntrNome.Text,
+                    ntrCognome.Text,
+                    dpInput.Date,
+                    colonne[0],
+                    colonne[1]
+                    );
+            }
+            catch
+            {
+                Cf cf = new Cf(
+                    ntrNome.Text,
+                    ntrCognome.Text,
+                    dpInput.Date,
+                    "EmiliaRomagna",
+                    "Rimini"
+                    );
+            }
         }
     }
 }
