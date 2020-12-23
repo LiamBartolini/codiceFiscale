@@ -25,6 +25,7 @@ namespace CodiceFiscale
                     ntrNome.Text,
                     ntrCognome.Text,
                     dpInput.Date,
+                    ntrSesso.Text,
                     colonne[0],
                     colonne[1]
                     );
@@ -35,6 +36,7 @@ namespace CodiceFiscale
                     ntrNome.Text,
                     ntrCognome.Text,
                     dpInput.Date,
+                    "Maschio",
                     "EmiliaRomagna",
                     "Rimini"
                     );

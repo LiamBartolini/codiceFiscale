@@ -4,5 +4,6 @@
   - [x] GUI 1.0
 ## Algoritmo
 - [] Implementarlo
-  - Riformattazione file "comuni"
-  - Aggiungere comuni nel file
+  - [x] algoritmo v1.0
+- [] Riformattazione file "comuni"
+- [] Aggiungere comuni nel file
