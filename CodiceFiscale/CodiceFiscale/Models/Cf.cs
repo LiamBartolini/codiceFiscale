@@ -11,6 +11,7 @@ namespace CodiceFiscale.Models
     {
         readonly List<char> vocali = new List<char>() { 'A', 'E', 'I', 'O', 'U' };
         readonly char[] lettere = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+        List<string> RegioniItaliane = new List<string>() { "Valle d'Aosta", "Piemonte", "Liguria", "Lombardia", "Trentino-Alto Adige", "Veneto", "Friuli-Venezia Giulia", "Emilia Romagna", "Toscana", "Umbria", "Marche", "Lazio", "Abruzzo", "Molise", "Campania", "Puglia", "Basilicata", "Calabria", "Sicilia", "Sardegna"};
         StringBuilder sb = new StringBuilder();
 
         string _nome;
@@ -41,6 +42,7 @@ namespace CodiceFiscale.Models
             
             CalcoloCodiceFiscale();
             Debug.WriteLine(_codiceFiscale);
+            Debug.WriteLine("N regioni: " + RegioniItaliane.Count);
         }
 
         void CalcoloCodiceFiscale()
@@ -279,7 +281,7 @@ namespace CodiceFiscale.Models
 
         async void AggiungiComune()
         {
-            using (var stream = await FileSystem.OpenAppPackageFileAsync("ComuniItaliani.cmi"))
+            using (var stream = await FileSystem.OpenAppPackageFileAsync("EmiliaRomagna.cmi"))
                 using (var reader = new StreamReader(stream))
                     while (!reader.EndOfStream)
                     {
