@@ -8,6 +8,16 @@
 
 - [] File ComuniItaliani.cmi
   - [] Aggiungere comuni nel file
+    - Abruzzo
+
     - Emilia-Romagna
-    
+      - *Piacenza*
+      - *Parma*
+      - *Reggio nell'Emilia*
+      - *Modena*
+      - *Bologna*
+      - *Ferrara*
+      - *Ravenna*
+      - *Forlì-Cesena*
+      - *Rimini* 
   - [] Parser per la ricerca --ricerca dicotomica--
