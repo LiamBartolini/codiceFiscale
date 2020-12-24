@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CodiceFiscale.MainPage">
+
+    <StackLayout>
+        <Entry
+            HorizontalOptions="CenterAndExpand"
+            Placeholder="Inserisci il nome"        
+            PlaceholderColor="Black"
+            x:Name="ntrNome"
+            />
+
+        <Entry
+            HorizontalOptions="CenterAndExpand"
+            Placeholder="Inserisci il cognome"        
+            PlaceholderColor="Black"
+            x:Name="ntrCognome"
+            />
+
+        <Entry
+            HorizontalOptions="CenterAndExpand"
+            Placeholder="Inserisci il sesso"        
+            PlaceholderColor="Black"
+            x:Name="ntrSesso"
+            />
+
+        <Entry
+            HorizontalOptions="CenterAndExpand"
+            Placeholder="Regione, Provincia, comune"
+            PlaceholderColor="Black"
+            x:Name="ntrComune"
+            />
+        
+        <StackLayout Orientation="Horizontal">
+            <Label
+                Text="Data di nascita: "
+                FontSize="Medium"
+                TextColor="black"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="CenterAndExpand"
+                />
+            <DatePicker
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="CenterAndExpand"
+                x:Name="dpInput"
+                />
+        </StackLayout>
+
+        <Button
+            Text="Calcola codice fiscale"
+            x:Name="btnCalcola"
+            VerticalOptions="Center"
+            HorizontalOptions="CenterAndExpand"
+            Clicked="btnCalcola_Clicked"
+            />
+
+        <Label
+            x:Name="lblOutput"
+            IsEnabled="False"
+            BackgroundColor="BlanchedAlmond"
+            HorizontalOptions="CenterAndExpand"
+            TextColor="Black"
+            VerticalTextAlignment="Center"
+            HorizontalTextAlignment="Center"
+            HeightRequest="50"
+            WidthRequest="200"
+            />
+    </StackLayout>
+
+</ContentPage>
