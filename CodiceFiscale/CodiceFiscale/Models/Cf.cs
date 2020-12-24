@@ -11,7 +11,7 @@ namespace CodiceFiscale.Models
     {
         readonly List<char> vocali = new List<char>() { 'A', 'E', 'I', 'O', 'U' };
         readonly char[] lettere = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
-        List<string> RegioniItaliane = new List<string>() { "Valle d'Aosta", "Piemonte", "Liguria", "Lombardia", "Trentino-Alto Adige", "Veneto", "Friuli-Venezia Giulia", "Emilia Romagna", "Toscana", "Umbria", "Marche", "Lazio", "Abruzzo", "Molise", "Campania", "Puglia", "Basilicata", "Calabria", "Sicilia", "Sardegna"};
+        List<string> RegioniItaliane = new List<string>() { "Valle d'Aosta", "Piemonte", "Liguria", "Lombardia", "Trentino-Alto Adige", "Veneto", "Friuli-Venezia Giulia", "Emilia-Romagna", "Toscana", "Umbria", "Marche", "Lazio", "Abruzzo", "Molise", "Campania", "Puglia", "Basilicata", "Calabria", "Sicilia", "Sardegna"};
         StringBuilder sb = new StringBuilder();
 
         string _nome;
@@ -281,19 +281,29 @@ namespace CodiceFiscale.Models
 
         async void AggiungiComune()
         {
-            using (var stream = await FileSystem.OpenAppPackageFileAsync("EmiliaRomagna.cmi"))
-                using (var reader = new StreamReader(stream))
-                    while (!reader.EndOfStream)
-                    {
-                        //Regione,Provincia,Comune,Codice catastale
-                        string[] cols = reader.ReadLine().Split(',');
-
-                        if (cols[0] == _regione && cols[1] == _provincia && cols[2] == _comune)
+            string file = RicercaRegione();
+            if (file != "")
+            {
+                using (var stream = await FileSystem.OpenAppPackageFileAsync(file))
+                    using (var reader = new StreamReader(stream))
+                        while (!reader.EndOfStream)
                         {
-                            _codiceCatastale = cols[3];
-                            break;
+                            //Regione,Provincia,Comune,Codice catastale
+                            string[] cols = reader.ReadLine().Split(',');
+                            if (cols[1] == _provincia && cols[2] == _comune) // Controllo la provincia ed il comune
+                            {
+                                _codiceCatastale = cols[3];
+                                break;
+                            }
                         }
-                    }
+            }
+        }
+
+        string RicercaRegione()
+        {
+            if (RegioniItaliane.Contains(_regione))
+                return $"{_regione}.cmi";
+            return "";
         }
     }
 }

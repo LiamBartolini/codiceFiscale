@@ -2,6 +2,7 @@
 
 - [] Creare una GUI
   - [x] GUI 1.0
+
 ## Algoritmo
 - [] Implementarlo
   - [x] algoritmo v1.0
@@ -10,7 +11,7 @@
   - [] Aggiungere comuni nel file
     - Abruzzo
 
-    - Emilia-Romagna
+    - [x] Emilia-Romagna
       - *Piacenza*
       - *Parma*
       - *Reggio nell'Emilia*
@@ -19,5 +20,7 @@
       - *Ferrara*
       - *Ravenna*
       - *Forlì-Cesena*
-      - *Rimini* 
+      - *Rimini*
+    - [x] Lombardia
+
   - [] Parser per la ricerca --ricerca dicotomica--
