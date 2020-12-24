@@ -12,15 +12,7 @@
     - Abruzzo
 
     - [x] Emilia-Romagna
-      - *Piacenza*
-      - *Parma*
-      - *Reggio nell'Emilia*
-      - *Modena*
-      - *Bologna*
-      - *Ferrara*
-      - *Ravenna*
-      - *Forlì-Cesena*
-      - *Rimini*
     - [x] Lombardia
+    - [] Piemonte
 
   - [] Parser per la ricerca --ricerca dicotomica--
