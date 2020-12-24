@@ -8,11 +8,26 @@
   - [x] algoritmo v1.0
 
 - [] File ComuniItaliani.cmi
-  - [] Aggiungere comuni nel file
-    - Abruzzo
-
+  - [] Aggiungere regioni nel file
     - [x] Emilia-Romagna
     - [x] Lombardia
-    - [] Piemonte
+    - [x] Piemonte
+    - [] Valle d'Aosta
+    - [] Liguria
+    - [] Trentino-Alto Adige
+    - [] Veneto
+    - [] Friuli-Venezia Giulia
+    - [] Toscana
+    - [] Umbria
+    - [] Lazio
+    - [] Marche
+    - [] Abruzzo
+    - [] Molise
+    - [] Puglia
+    - [] Campania
+    - [] Basilicata
+    - [] Calabria
+    - [] Sicilia
+    - [] Sardegna
 
   - [] Parser per la ricerca --ricerca dicotomica--
