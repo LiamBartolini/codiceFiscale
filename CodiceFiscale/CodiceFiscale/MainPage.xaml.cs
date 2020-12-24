@@ -13,10 +13,11 @@ namespace CodiceFiscale
         
         private void btnCalcola_Clicked(object sender, EventArgs e)
         {
+            Cf cf;
             try
             {
                 string[] colonne = ntrComune.Text.Split(',');
-                Cf cf = new Cf(
+                cf = new Cf(
                     ntrNome.Text,
                     ntrCognome.Text,
                     dpInput.Date,
@@ -28,16 +29,18 @@ namespace CodiceFiscale
             }
             catch
             {
-                Cf cf = new Cf(
-                    ntrNome.Text,
-                    ntrCognome.Text,
-                    dpInput.Date,
+                cf = new Cf(
+                    "Liam",
+                    "Bartolini",
+                    Convert.ToDateTime("23/01/2003"),
                     "Maschio",
                     "EmiliaRomagna",
                     "Rimini",
-                    "Coriano"
+                    "Rimini"
                     );
             }
+
+            lblOutput.Text = cf.CodiceFiscale;
         }
     }
 }

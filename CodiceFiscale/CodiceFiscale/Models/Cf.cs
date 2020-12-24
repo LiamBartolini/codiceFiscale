@@ -21,8 +21,9 @@ namespace CodiceFiscale.Models
         string _comune;
         string _codiceCatastale;
         string _sesso;
+
         string _codiceFiscale;
-        public string CodiceFiscale { get; }
+        public string CodiceFiscale { get => _codiceFiscale; }
         
         public Cf()
         {
@@ -39,13 +40,14 @@ namespace CodiceFiscale.Models
             _provincia = provincia;
             
             CalcoloCodiceFiscale();
-            Debug.WriteLine(sb.ToString());
+            Debug.WriteLine(_codiceFiscale);
         }
 
         void CalcoloCodiceFiscale()
         {
             List<char> mesi = new List<char>() { 'A', 'B', 'C', 'D', 'E', 'H', 'L', 'M', 'P', 'R', 'S', 'T' };
-
+            
+            // Calcolo il cognome e il nome
             int contCognome = CalcolaCognomeCf();
             CalcolaNomeCf(contCognome);
 
@@ -54,14 +56,20 @@ namespace CodiceFiscale.Models
             // Aggiungo il mese
             sb.Append($"{mesi[_dataDiNascita.Month - 1]}");
             // Aggiungo il giorno
-            if (_sesso == "Maschio")
+            if (_sesso.ToLower() == "maschio")
                 sb.Append($"{_dataDiNascita:dd}");
-            else
+            else if (_sesso.ToLower() == "femmina")
                 sb.Append($"{_dataDiNascita.Day + 40}");
             // Aggiungo il comune
-            AggiungiComune();
-            sb.Append(_codiceCatastale);
-            //sb.Append("H294");
+            try
+            {
+                AggiungiComune();
+                sb.Append(_codiceCatastale);
+            }
+            catch
+            {
+                sb.Append("H294");  // Comune di default
+            }
             // Aggiungo il carattere di controllo
             int checkChar = CalcoloCarattereControlloCf();
             sb.Append(lettere[checkChar]);
@@ -73,43 +81,34 @@ namespace CodiceFiscale.Models
             char[] cognomeChar = _cognome.ToUpper().ToCharArray();
             int contCognome = 0;
             int numConsonanti = ContaConsonanti(_cognome);
-
             if(numConsonanti >= 3)
             {
                 for (int i = 0; i < cognomeChar.Length; i++)
-                {
                     if (contCognome < 3)
-                    {
                         if(!vocali.Contains(cognomeChar[i]))
                         {
                             sb.Append(cognomeChar[i]);
                             contCognome++;
                         }
-                    }
-                }
             }
             else if (numConsonanti == 2)
             {
                 for (int i = 0; i < cognomeChar.Length; i++)
-                {
                     if (!vocali.Contains(cognomeChar[i]))
                     {
                         sb.Append(cognomeChar[i]);
                         contCognome++;
                     }
-                }
             }
             else if (numConsonanti < 2)
             {
                 for (int i = 0; i < cognomeChar.Length; i++)
-                {
                     if (!vocali.Contains(cognomeChar[i]))
                     {
                         sb.Append(cognomeChar[i]);
                         contCognome++;
                         break;
                     }
-                }
             }
 
             // Aggiunge vocali e/o X
@@ -135,44 +134,37 @@ namespace CodiceFiscale.Models
             int contNome = 0;
             int numConsonanti = ContaConsonanti(_nome);
             int contConsonanti = 0;
-
-            bool exit = false;
+            bool exit = true;
             if (numConsonanti >= 3)
             {
                 for (int i = 0; i < nomeChar.Length; i++)
                 {
-                    if (contNome <= 3)
+                    if (contNome <= 3 && !vocali.Contains(nomeChar[i]))
                     {
-                        if (!vocali.Contains(nomeChar[i]))
+                        if (contConsonanti != 1)
                         {
-                            if (contConsonanti != 1)
+                            sb.Append(nomeChar[i]);
+                            contNome++;
+                            contConsonanti++;
+                        }
+                        else
+                        {
+                            for (int j = i + 1; j < nomeChar.Length; j++)
                             {
-                                sb.Append(nomeChar[i]);
-                                contNome++;
-                                contConsonanti++;
-                            }
-                            else
-                            {
-
-                                for (int j = i + 1; j < nomeChar.Length; j++)
+                                if (!vocali.Contains(nomeChar[j]))
                                 {
-                                    if (!vocali.Contains(nomeChar[j]))
-                                    {
-                                        sb.Append(nomeChar[j]);
-                                        contNome++;
-                                        contCognome++;
-                                    }
-
-                                    if (contNome == 3)
-                                    {
-                                        exit = true;
-                                        break;
-                                    }
+                                    sb.Append(nomeChar[j]);
+                                    contNome++;
+                                    contCognome++;
+                                }
+                                if (contNome == 3)
+                                {
+                                    exit = true;
+                                    break;
                                 }
                             }
                         }
                     }
-
                     if (exit)
                         break;
                 }
@@ -180,82 +172,59 @@ namespace CodiceFiscale.Models
             else if (numConsonanti == 2)
             {
                 for (int i = 0; i < nomeChar.Length; i++)
-                {
                     if (!vocali.Contains(nomeChar[i]))
                     {
                         sb.Append(nomeChar[i]);
                         contNome++;
                     }
-                }
             }
             else if (numConsonanti < 2)
             {
                 for (int i = 0; i < nomeChar.Length; i++)
-                {
                     if (!vocali.Contains(nomeChar[i]))
                     {
                         sb.Append(nomeChar[i]);
                         contNome++;
                         break;
                     }
-                }
             }
-
             // Aggiunge vocali e/o X
-            bool flagName = false;
-
-            if (contCognome + contNome < 6)
+            bool flagName = true;
+            if (contCognome + contNome < 6 && contNome < 3)
             {
-                if (contNome < 3)
-                {
-                    for (int i = 0; i < nomeChar.Length; i++)
-                    {
-                        if (contCognome + contNome < 6)
-                        {
-                            if (contNome <= 3)
-                            {
-                                if (vocali.Contains(nomeChar[i]))
-                                {
-                                    sb.Append(nomeChar[i]);
-                                    contNome++;
-                                }
-                                else
-                                    flagName = true;
-                            }
-                        }
-                    }
-                }
+                for (int i = 0; i < nomeChar.Length; i++)
 
-                if (!flagName)
-                {
-                    if (contNome < 3)
-                    {
-                        for (int i = contNome; i < 3; i++)
+                    if (contCognome + contNome < 6 && contNome <= 3)
+                        if (vocali.Contains(nomeChar[i]))
                         {
-                            sb.Append('X');
+                            sb.Append(nomeChar[i]);
+                            contNome++;
+                            flagName = false;
                         }
-                    }
-                }
+                        else
+                            flagName = true;
+                if (!flagName)
+                    if (contNome < 3)
+                        for (int i = contNome; i < 3; i++)
+                            sb.Append('X');
             }
         }
+
         int CalcoloCarattereControlloCf()
         {
             int[] dispari = new int[] { 1, 0, 5, 7, 9, 13, 15, 17, 19, 21, 2, 4, 18, 20, 11, 3, 6, 8, 12, 14, 16, 10, 22, 25, 24, 23 };
             char[] cfChar = sb.ToString().ToCharArray();
             int retVal = 0;
-
             for (int i = 0; i < cfChar.Length; i++)
             {
                 if ((i + 1) == 1)
                 {
                     for (int j = 0; j < lettere.Length; j++)
-                    {
                         if(cfChar[i] == lettere[j])
                         {
                             retVal += dispari[j];
                             break;
                         }
-                    }
                 }
                 else
                 {
@@ -269,13 +238,11 @@ namespace CodiceFiscale.Models
                         else
                         {
                             for (int j = 0; j < lettere.Length; j++)
-                            {
                                 if (cfChar[i] == lettere[j])
                                 {
                                     retVal += j;
                                     break;
                                 }
-                            }
                         }
                     }
                     else
@@ -288,13 +255,11 @@ namespace CodiceFiscale.Models
                         else
                         {
                             for (int j = 0; j < lettere.Length; j++)
-                            {
                                 if (cfChar[i] == lettere[j])
                                 {
                                     retVal += dispari[j];
                                     break;
                                 }
-                            }
                         }    
                     }
                 }
@@ -315,19 +280,18 @@ namespace CodiceFiscale.Models
         async void AggiungiComune()
         {
             using (var stream = await FileSystem.OpenAppPackageFileAsync("ComuniItaliani.cmi"))
-            {
                 using (var reader = new StreamReader(stream))
-                {
                     while (!reader.EndOfStream)
                     {
                         //Regione,Provincia,Comune,Codice catastale
                         string[] cols = reader.ReadLine().Split(',');
 
                         if (cols[0] == _regione && cols[1] == _provincia && cols[2] == _comune)
+                        {
                             _codiceCatastale = cols[3];
+                            break;
+                        }
                     }
-                }
-            }
         }
     }
 }

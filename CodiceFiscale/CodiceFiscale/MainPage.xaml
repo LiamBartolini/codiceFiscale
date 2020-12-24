@@ -61,7 +61,10 @@
             BackgroundColor="BlanchedAlmond"
             HorizontalOptions="CenterAndExpand"
             TextColor="Black"
+            VerticalTextAlignment="Center"
+            HorizontalTextAlignment="Center"
             HeightRequest="50"
+            WidthRequest="200"
             />
     </StackLayout>
 
